@@ -1,0 +1,39 @@
+pipeline {
+    agent {
+        label "worker"
+    }
+
+    tools{
+        terraform 'tf'
+    }
+
+    environment{
+        MY_AWS_CRED = credentials('aws-cred')
+    }
+
+    stages{
+        stage('Checkout'){
+            steps{
+                git 'https://github.com/mayurpandit25/studentapp-ui.git'
+            }
+        }
+
+        stage('Terraform - Init'){
+            steps{
+                sh 'terraform init'
+            }
+        }
+
+        stage('Terraform - validate'){
+            steps{
+                sh 'terraform validate'
+            }
+        }
+
+        stage('Terraform - apply'){
+            steps{
+                sh 'terraform apply --auto-approve'
+            }
+        }
+    }
+}

@@ -1,0 +1,10 @@
+version: "3.8"
+services: 
+
+  studentapp:
+    build: .
+    image: studentapp
+    container_name: studentapp
+    ports:
+      - "8080:8080"
+    
